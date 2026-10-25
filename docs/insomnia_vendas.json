@@ -1,0 +1,879 @@
+{
+  "_type": "export",
+  "__export_format": 4,
+  "__export_date": "2026-10-20T00:00:00.000Z",
+  "__export_source": "insomnia.desktop.app:v8.0.0",
+  "resources": [
+    {
+      "_id": "wrk_vendas_api",
+      "_type": "workspace",
+      "parentId": null,
+      "name": "API Vendas e Comissões",
+      "description": "Vendedores, vendas, comissões e relatório de performance. Servidor em http://localhost:3000",
+      "scope": "collection"
+    },
+    {
+      "_id": "env_vendas_base",
+      "_type": "environment",
+      "parentId": "wrk_vendas_api",
+      "name": "Base Environment",
+      "data": {
+        "base_url": "http://localhost:3000"
+      },
+      "metaSortKey": 0
+    },
+    {
+      "_id": "fld_vendedores",
+      "_type": "request_group",
+      "parentId": "wrk_vendas_api",
+      "name": "1. Vendedores",
+      "description": "Cadastro, consulta, atualização e desativação de vendedores",
+      "environment": {},
+      "metaSortKey": -1000
+    },
+    {
+      "_id": "req_vendedores_01",
+      "_type": "request",
+      "parentId": "fld_vendedores",
+      "name": "1. POST cadastrar vendedor",
+      "description": "Teste 1. Espera 201. Com o banco recém-criado pelo script, o vendedor recebe id_vendedor 7 e ativo true.",
+      "method": "POST",
+      "url": "{{ _.base_url }}/vendedores",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"nome\": \"Gabriela Teixeira\",\n  \"meta_mensal\": 10000,\n  \"percentual_base\": 5\n}"
+      },
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "parameters": [],
+      "authentication": {},
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "metaSortKey": -1000
+    },
+    {
+      "_id": "req_vendedores_02",
+      "_type": "request",
+      "parentId": "fld_vendedores",
+      "name": "2. GET listar vendedores",
+      "description": "Espera 200 com todos os vendedores (ativos e inativos).",
+      "method": "GET",
+      "url": "{{ _.base_url }}/vendedores",
+      "body": {},
+      "headers": [],
+      "parameters": [],
+      "authentication": {},
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "metaSortKey": -990
+    },
+    {
+      "_id": "req_vendedores_03",
+      "_type": "request",
+      "parentId": "fld_vendedores",
+      "name": "3. GET listar só ativos (?ativo=true)",
+      "description": "Espera 200 sem o Fábio Nunes (id 6, inativo).",
+      "method": "GET",
+      "url": "{{ _.base_url }}/vendedores?ativo=true",
+      "body": {},
+      "headers": [],
+      "parameters": [],
+      "authentication": {},
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "metaSortKey": -980
+    },
+    {
+      "_id": "req_vendedores_04",
+      "_type": "request",
+      "parentId": "fld_vendedores",
+      "name": "4. GET consultar vendedor por código",
+      "description": "Espera 200 com Ana Souza.",
+      "method": "GET",
+      "url": "{{ _.base_url }}/vendedores/1",
+      "body": {},
+      "headers": [],
+      "parameters": [],
+      "authentication": {},
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "metaSortKey": -970
+    },
+    {
+      "_id": "req_vendedores_05",
+      "_type": "request",
+      "parentId": "fld_vendedores",
+      "name": "5. PUT atualizar meta mensal",
+      "description": "Teste 4. Espera 200. Envio parcial: só a meta muda (12000 -> 9000); percentual_base continua 4.5.",
+      "method": "PUT",
+      "url": "{{ _.base_url }}/vendedores/2",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"meta_mensal\": 9000\n}"
+      },
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "parameters": [],
+      "authentication": {},
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "metaSortKey": -960
+    },
+    {
+      "_id": "req_vendedores_06",
+      "_type": "request",
+      "parentId": "fld_vendedores",
+      "name": "6. PUT atualizar meta e percentual",
+      "description": "Espera 200. As vendas antigas do Diego mantêm a comissão gravada; o novo percentual vale para as próximas.",
+      "method": "PUT",
+      "url": "{{ _.base_url }}/vendedores/4",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"meta_mensal\": 11000,\n  \"percentual_base\": 4.5\n}"
+      },
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "parameters": [],
+      "authentication": {},
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "metaSortKey": -950
+    },
+    {
+      "_id": "req_vendedores_07",
+      "_type": "request",
+      "parentId": "fld_vendedores",
+      "name": "7. PATCH desativar vendedor",
+      "description": "Espera 200 e ativo false. As vendas do vendedor continuam no banco (veja GET /vendas/vendedor/7).",
+      "method": "PATCH",
+      "url": "{{ _.base_url }}/vendedores/7/desativar",
+      "body": {},
+      "headers": [],
+      "parameters": [],
+      "authentication": {},
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "metaSortKey": -940
+    },
+    {
+      "_id": "fld_vendas",
+      "_type": "request_group",
+      "parentId": "wrk_vendas_api",
+      "name": "2. Vendas",
+      "description": "Registro, consulta e exclusão de vendas",
+      "environment": {},
+      "metaSortKey": -900
+    },
+    {
+      "_id": "req_vendas_01",
+      "_type": "request",
+      "parentId": "fld_vendas",
+      "name": "1. POST registrar venda (exemplo do enunciado)",
+      "description": "Teste 1. Espera 201. Ana (base 5%) + PJ (3%) + Norte (1%) = 9% -> valor_comissao 180.00, igual ao exemplo do enunciado.",
+      "method": "POST",
+      "url": "{{ _.base_url }}/vendas",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"id_venda\": 2001,\n  \"id_vendedor\": 1,\n  \"id_regiao\": 1,\n  \"valor_venda\": 2000,\n  \"tipo_cliente\": \"PJ\",\n  \"data_venda\": \"2026-10-20 10:00:00\"\n}"
+      },
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "parameters": [],
+      "authentication": {},
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "metaSortKey": -1000
+    },
+    {
+      "_id": "req_vendas_02",
+      "_type": "request",
+      "parentId": "fld_vendas",
+      "name": "2. POST registrar venda PF no Sul",
+      "description": "Espera 201. Carla (base 6%) + PF (2%) + Sul (0,5%) = 8,5% -> valor_comissao 127.50.",
+      "method": "POST",
+      "url": "{{ _.base_url }}/vendas",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"id_venda\": 2002,\n  \"id_vendedor\": 3,\n  \"id_regiao\": 4,\n  \"valor_venda\": 1500,\n  \"tipo_cliente\": \"PF\",\n  \"data_venda\": \"2026-10-20 11:30:00\"\n}"
+      },
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "parameters": [],
+      "authentication": {},
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "metaSortKey": -990
+    },
+    {
+      "_id": "req_vendas_03",
+      "_type": "request",
+      "parentId": "fld_vendas",
+      "name": "3. POST registrar venda sem data (usa a data atual)",
+      "description": "Espera 201. Sem data_venda, grava a data/hora atual. Elisa (5,5%) + PJ (3%) + Sudeste (0%) = 8,5% -> 68.00.",
+      "method": "POST",
+      "url": "{{ _.base_url }}/vendas",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"id_venda\": 2003,\n  \"id_vendedor\": 5,\n  \"id_regiao\": 3,\n  \"valor_venda\": 800,\n  \"tipo_cliente\": \"PJ\"\n}"
+      },
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "parameters": [],
+      "authentication": {},
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "metaSortKey": -980
+    },
+    {
+      "_id": "req_vendas_04",
+      "_type": "request",
+      "parentId": "fld_vendas",
+      "name": "4. GET listar vendas",
+      "description": "Espera 200 com todas as vendas, incluindo nome do vendedor e da região (JOIN).",
+      "method": "GET",
+      "url": "{{ _.base_url }}/vendas",
+      "body": {},
+      "headers": [],
+      "parameters": [],
+      "authentication": {},
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "metaSortKey": -970
+    },
+    {
+      "_id": "req_vendas_05",
+      "_type": "request",
+      "parentId": "fld_vendas",
+      "name": "5. GET vendas por vendedor",
+      "description": "Teste 5. Espera 200 com as vendas da Ana Souza.",
+      "method": "GET",
+      "url": "{{ _.base_url }}/vendas/vendedor/1",
+      "body": {},
+      "headers": [],
+      "parameters": [],
+      "authentication": {},
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "metaSortKey": -960
+    },
+    {
+      "_id": "req_vendas_06",
+      "_type": "request",
+      "parentId": "fld_vendas",
+      "name": "6. GET vendas de vendedor inativo (histórico)",
+      "description": "Espera 200. O Fábio está inativo, mas o histórico de vendas dele continua consultável.",
+      "method": "GET",
+      "url": "{{ _.base_url }}/vendas/vendedor/6",
+      "body": {},
+      "headers": [],
+      "parameters": [],
+      "authentication": {},
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "metaSortKey": -950
+    },
+    {
+      "_id": "req_vendas_07",
+      "_type": "request",
+      "parentId": "fld_vendas",
+      "name": "7. GET vendas por região",
+      "description": "Teste 5. Espera 200 com as vendas da região Norte.",
+      "method": "GET",
+      "url": "{{ _.base_url }}/vendas/regiao/1",
+      "body": {},
+      "headers": [],
+      "parameters": [],
+      "authentication": {},
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "metaSortKey": -940
+    },
+    {
+      "_id": "req_vendas_08",
+      "_type": "request",
+      "parentId": "fld_vendas",
+      "name": "8. DELETE excluir venda",
+      "description": "Espera 200 e devolve a venda excluída.",
+      "method": "DELETE",
+      "url": "{{ _.base_url }}/vendas/2003",
+      "body": {},
+      "headers": [],
+      "parameters": [],
+      "authentication": {},
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "metaSortKey": -930
+    },
+    {
+      "_id": "fld_validacoes",
+      "_type": "request_group",
+      "parentId": "wrk_vendas_api",
+      "name": "3. Validações e erros",
+      "description": "Casos que devem retornar 400 ou 404",
+      "environment": {},
+      "metaSortKey": -800
+    },
+    {
+      "_id": "req_validacoes_01",
+      "_type": "request",
+      "parentId": "fld_validacoes",
+      "name": "1. POST venda com código duplicado",
+      "description": "Teste 2. Espera 400: já existe uma venda com o código 2001 (rode antes o POST da pasta Vendas).",
+      "method": "POST",
+      "url": "{{ _.base_url }}/vendas",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"id_venda\": 2001,\n  \"id_vendedor\": 2,\n  \"id_regiao\": 2,\n  \"valor_venda\": 500,\n  \"tipo_cliente\": \"PF\"\n}"
+      },
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "parameters": [],
+      "authentication": {},
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "metaSortKey": -1000
+    },
+    {
+      "_id": "req_validacoes_02",
+      "_type": "request",
+      "parentId": "fld_validacoes",
+      "name": "2. POST venda para vendedor inexistente",
+      "description": "Teste 3. Espera 404: vendedor 99 não existe.",
+      "method": "POST",
+      "url": "{{ _.base_url }}/vendas",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"id_venda\": 2010,\n  \"id_vendedor\": 99,\n  \"id_regiao\": 2,\n  \"valor_venda\": 500,\n  \"tipo_cliente\": \"PF\"\n}"
+      },
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "parameters": [],
+      "authentication": {},
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "metaSortKey": -990
+    },
+    {
+      "_id": "req_validacoes_03",
+      "_type": "request",
+      "parentId": "fld_validacoes",
+      "name": "3. POST venda para vendedor inativo",
+      "description": "Teste 3. Espera 400: o vendedor 6 (Fábio Nunes) está inativo.",
+      "method": "POST",
+      "url": "{{ _.base_url }}/vendas",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"id_venda\": 2011,\n  \"id_vendedor\": 6,\n  \"id_regiao\": 2,\n  \"valor_venda\": 500,\n  \"tipo_cliente\": \"PF\"\n}"
+      },
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "parameters": [],
+      "authentication": {},
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "metaSortKey": -980
+    },
+    {
+      "_id": "req_validacoes_04",
+      "_type": "request",
+      "parentId": "fld_validacoes",
+      "name": "4. POST venda para região inexistente",
+      "description": "Espera 404: região 9 não existe.",
+      "method": "POST",
+      "url": "{{ _.base_url }}/vendas",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"id_venda\": 2012,\n  \"id_vendedor\": 1,\n  \"id_regiao\": 9,\n  \"valor_venda\": 500,\n  \"tipo_cliente\": \"PF\"\n}"
+      },
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "parameters": [],
+      "authentication": {},
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "metaSortKey": -970
+    },
+    {
+      "_id": "req_validacoes_05",
+      "_type": "request",
+      "parentId": "fld_validacoes",
+      "name": "5. POST venda com valor negativo",
+      "description": "Espera 400: o valor da venda deve ser maior que zero.",
+      "method": "POST",
+      "url": "{{ _.base_url }}/vendas",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"id_venda\": 2013,\n  \"id_vendedor\": 1,\n  \"id_regiao\": 1,\n  \"valor_venda\": -100,\n  \"tipo_cliente\": \"PF\"\n}"
+      },
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "parameters": [],
+      "authentication": {},
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "metaSortKey": -960
+    },
+    {
+      "_id": "req_validacoes_06",
+      "_type": "request",
+      "parentId": "fld_validacoes",
+      "name": "6. POST venda com tipo de cliente inválido",
+      "description": "Espera 400: tipo_cliente aceita só PF ou PJ.",
+      "method": "POST",
+      "url": "{{ _.base_url }}/vendas",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"id_venda\": 2014,\n  \"id_vendedor\": 1,\n  \"id_regiao\": 1,\n  \"valor_venda\": 100,\n  \"tipo_cliente\": \"XY\"\n}"
+      },
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "parameters": [],
+      "authentication": {},
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "metaSortKey": -950
+    },
+    {
+      "_id": "req_validacoes_07",
+      "_type": "request",
+      "parentId": "fld_validacoes",
+      "name": "7. POST venda sem campos obrigatórios",
+      "description": "Espera 400 indicando o primeiro campo ausente (id_regiao).",
+      "method": "POST",
+      "url": "{{ _.base_url }}/vendas",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"id_venda\": 2015,\n  \"id_vendedor\": 1\n}"
+      },
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "parameters": [],
+      "authentication": {},
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "metaSortKey": -940
+    },
+    {
+      "_id": "req_validacoes_08",
+      "_type": "request",
+      "parentId": "fld_validacoes",
+      "name": "8. POST vendedor com percentual inválido",
+      "description": "Espera 400: o percentual base deve estar entre 0 e 100.",
+      "method": "POST",
+      "url": "{{ _.base_url }}/vendedores",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"nome\": \"Teste\",\n  \"meta_mensal\": 5000,\n  \"percentual_base\": 150\n}"
+      },
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "parameters": [],
+      "authentication": {},
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "metaSortKey": -930
+    },
+    {
+      "_id": "req_validacoes_09",
+      "_type": "request",
+      "parentId": "fld_validacoes",
+      "name": "9. PUT vendedor sem campos",
+      "description": "Espera 400: informe meta_mensal e/ou percentual_base.",
+      "method": "PUT",
+      "url": "{{ _.base_url }}/vendedores/1",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{}"
+      },
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "parameters": [],
+      "authentication": {},
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "metaSortKey": -920
+    },
+    {
+      "_id": "req_validacoes_10",
+      "_type": "request",
+      "parentId": "fld_validacoes",
+      "name": "10. GET vendedor inexistente",
+      "description": "Espera 404.",
+      "method": "GET",
+      "url": "{{ _.base_url }}/vendedores/99",
+      "body": {},
+      "headers": [],
+      "parameters": [],
+      "authentication": {},
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "metaSortKey": -910
+    },
+    {
+      "_id": "req_validacoes_11",
+      "_type": "request",
+      "parentId": "fld_validacoes",
+      "name": "11. PATCH desativar vendedor já inativo",
+      "description": "Espera 400: o vendedor já está inativo.",
+      "method": "PATCH",
+      "url": "{{ _.base_url }}/vendedores/6/desativar",
+      "body": {},
+      "headers": [],
+      "parameters": [],
+      "authentication": {},
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "metaSortKey": -900
+    },
+    {
+      "_id": "req_validacoes_12",
+      "_type": "request",
+      "parentId": "fld_validacoes",
+      "name": "12. GET vendas de região inexistente",
+      "description": "Espera 404.",
+      "method": "GET",
+      "url": "{{ _.base_url }}/vendas/regiao/9",
+      "body": {},
+      "headers": [],
+      "parameters": [],
+      "authentication": {},
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "metaSortKey": -890
+    },
+    {
+      "_id": "req_validacoes_13",
+      "_type": "request",
+      "parentId": "fld_validacoes",
+      "name": "13. DELETE venda inexistente",
+      "description": "Espera 404: a existência é verificada antes de excluir.",
+      "method": "DELETE",
+      "url": "{{ _.base_url }}/vendas/9999",
+      "body": {},
+      "headers": [],
+      "parameters": [],
+      "authentication": {},
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "metaSortKey": -880
+    },
+    {
+      "_id": "req_validacoes_14",
+      "_type": "request",
+      "parentId": "fld_validacoes",
+      "name": "14. GET relatório sem período",
+      "description": "Espera 400: inicio e fim são obrigatórios.",
+      "method": "GET",
+      "url": "{{ _.base_url }}/relatorios/performance",
+      "body": {},
+      "headers": [],
+      "parameters": [],
+      "authentication": {},
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "metaSortKey": -870
+    },
+    {
+      "_id": "req_validacoes_15",
+      "_type": "request",
+      "parentId": "fld_validacoes",
+      "name": "15. GET relatório com datas invertidas",
+      "description": "Espera 400: a data inicial não pode ser posterior à final.",
+      "method": "GET",
+      "url": "{{ _.base_url }}/relatorios/performance?inicio=2026-10-31&fim=2026-10-01",
+      "body": {},
+      "headers": [],
+      "parameters": [],
+      "authentication": {},
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "metaSortKey": -860
+    },
+    {
+      "_id": "fld_relatorios",
+      "_type": "request_group",
+      "parentId": "wrk_vendas_api",
+      "name": "4. Relatórios",
+      "description": "Relatório de performance por período",
+      "environment": {},
+      "metaSortKey": -700
+    },
+    {
+      "_id": "req_relatorios_01",
+      "_type": "request",
+      "parentId": "fld_relatorios",
+      "name": "1. GET relatório de outubro/2026",
+      "description": "Teste 6. Espera 200. Só com os dados do script: 15 vendas, R$ 64.950,00 vendidos e 3 metas atingidas (Ana, Carla e Elisa). Os POSTs da pasta Vendas alteram esses números.",
+      "method": "GET",
+      "url": "{{ _.base_url }}/relatorios/performance?inicio=2026-10-01&fim=2026-10-31",
+      "body": {},
+      "headers": [],
+      "parameters": [],
+      "authentication": {},
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "metaSortKey": -1000
+    },
+    {
+      "_id": "req_relatorios_02",
+      "_type": "request",
+      "parentId": "fld_relatorios",
+      "name": "2. GET relatório de setembro a outubro",
+      "description": "Espera 200. As metas são avaliadas mês a mês: metas_atingidas.por_mes traz 2026-09 e 2026-10 separados.",
+      "method": "GET",
+      "url": "{{ _.base_url }}/relatorios/performance?inicio=2026-09-01&fim=2026-10-31",
+      "body": {},
+      "headers": [],
+      "parameters": [],
+      "authentication": {},
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "metaSortKey": -990
+    },
+    {
+      "_id": "fld_erro_banco",
+      "_type": "request_group",
+      "parentId": "wrk_vendas_api",
+      "name": "5. Erro de banco",
+      "description": "Teste 7: pare o MySQL (ou coloque uma senha errada no .env e reinicie a API) antes de enviar",
+      "environment": {},
+      "metaSortKey": -600
+    },
+    {
+      "_id": "req_erro_banco_01",
+      "_type": "request",
+      "parentId": "fld_erro_banco",
+      "name": "1. GET vendedores com o banco fora do ar",
+      "description": "Teste 7. Com o MySQL parado espera 500: {status: false, message: 'Erro ao consultar vendedores', erro: 'ECONNREFUSED'}. Com senha errada no .env, erro: 'ER_ACCESS_DENIED_ERROR'.",
+      "method": "GET",
+      "url": "{{ _.base_url }}/vendedores",
+      "body": {},
+      "headers": [],
+      "parameters": [],
+      "authentication": {},
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "metaSortKey": -1000
+    },
+    {
+      "_id": "req_erro_banco_02",
+      "_type": "request",
+      "parentId": "fld_erro_banco",
+      "name": "2. POST venda com o banco fora do ar",
+      "description": "Teste 7. Com o MySQL parado espera 500 com a causa no campo erro.",
+      "method": "POST",
+      "url": "{{ _.base_url }}/vendas",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"id_venda\": 3001,\n  \"id_vendedor\": 1,\n  \"id_regiao\": 1,\n  \"valor_venda\": 100,\n  \"tipo_cliente\": \"PF\"\n}"
+      },
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "parameters": [],
+      "authentication": {},
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "metaSortKey": -990
+    }
+  ]
+}
